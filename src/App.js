@@ -47,10 +47,10 @@ function App() {
 
   const fetchData = useCallback(async () => {
     try {
-      const resTx = await axios.get('http://localhost:5000/api/transactions');
-      const resStats = await axios.get('http://localhost:5000/api/statistics');
-      const resCat = await axios.get('http://localhost:5000/api/categories');
-      const resMonthly = await axios.get('http://localhost:5000/api/statistics/monthly');
+      const resTx = await axios.get('/api/transactions');
+      const resStats = await axios.get('/api/statistics');
+      const resCat = await axios.get('/api/categories');
+      const resMonthly = await axios.get('/api/statistics/monthly');
       
       setTransactions(resTx.data);
       setStats(resStats.data);
