@@ -79,7 +79,7 @@ function App() {
     } catch (err) {
       console.error("Gagal mengambil data:", err);
     }
-  }, []);
+  }, [API_URL]);
 
   useEffect(() => {
     fetchData();
