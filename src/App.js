@@ -45,12 +45,14 @@ function App() {
   const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState(null);
 
+  const API_URL = process.env.REACT_APP_BACKEND_URL || '';
+
   const fetchData = useCallback(async () => {
     try {
-      const resTx = await axios.get('/api/transactions');
-      const resStats = await axios.get('/api/statistics');
-      const resCat = await axios.get('/api/categories');
-      const resMonthly = await axios.get('/api/statistics/monthly');
+      const resTx = await axios.get(`${API_URL}/api/transactions`);
+      const resStats = await axios.get(`${API_URL}/api/statistics`);
+      const resCat = await axios.get(`${API_URL}/api/categories`);
+      const resMonthly = await axios.get(`${API_URL}/api/statistics/monthly`);
       
       setTransactions(resTx.data);
       setStats(resStats.data);
@@ -88,11 +90,11 @@ function App() {
     e.preventDefault();
     try {
       if (isEditing) {
-        await axios.put(`http://localhost:5000/api/transactions/${editId}`, form);
+        await axios.put(`${API_URL}/api/transactions/${editId}`, form);
         setIsEditing(false);
         setEditId(null);
       } else {
-        await axios.post('http://localhost:5000/api/transactions', form);
+        await axios.post(`${API_URL}/api/transactions`, form);
       }
       
       setForm({ 
@@ -139,7 +141,7 @@ function App() {
   const handleDelete = async (id) => {
     if (window.confirm("Apakah Anda yakin ingin menghapus transaksi ini?")) {
       try {
-        await axios.delete(`http://localhost:5000/api/transactions/${id}`);
+        await axios.delete(`${API_URL}/api/transactions/${id}`);
         fetchData();
       } catch (err) {
         console.error("Gagal menghapus transaksi:", err);
